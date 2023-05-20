@@ -8,6 +8,7 @@ const SECRET_KEY=process.env.SECRET_KEY;
 const signup= async (req,res)=>{
   //Exisiting User Check
   const {username,email,password}=req.body;
+  
   try{
       const existingUser=await userModel.findOne({email:email});
       if(existingUser){
@@ -52,5 +53,6 @@ const signin= async (req,res)=>{
     res.status(500).json({message:"something went wrong"});
    }
 }
+
 
 module.exports={signin,signup};

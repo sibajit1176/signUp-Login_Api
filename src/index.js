@@ -8,6 +8,7 @@ const mongoose=require("mongoose")
 
 const app=express();
 app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 
 app.use(cors());
 
@@ -16,11 +17,12 @@ app.use("/notes",noteRouter);
 
 
 app.get("/",(req,res) =>{
-    res.send("Notes Api");
+    res.render("index");
 })
-
+app.use("",require("../src/routes/userRoutes"));
+app.use("",require("../src/routes/noteRoutes"));
 const PORT=process.env.PORT || 5000;
-
+app.set("view engine","ejs");
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     app.listen(PORT,(error) =>{
